@@ -39,7 +39,9 @@ function App() {
           return <li>{pokemon.name}</li>
         })}
       </ul>
+      <button onClick={()=> setActual  }>Anterior</button>
       <button onClick={()=> setActual(siguiente)}>Siguiente</button>
+     
     </div>
   )
 }
