@@ -8,13 +8,14 @@ function App() {
   const [siguiente , setSiguiente]= useState(null)
   const [actual, setActual]= useState("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0")
 
+
   useEffect(()=>{
     //La funcion obtenerPokemones es async (asincrona) debido a que necesita
     // poder manejar la espera de respuesta de la API de forma dinamica
     async function obtenerPokemones(){
       // inicializar la consulta con la URL necesaria obtenida de pokeapi
       // construida en base a la documentacion de la misma
-      const response = await fetch (actual)
+      const response = await fetch (actual) 
       // obtenemos la informacion en formato bruto, saco directamente del json
       // un objeto trabajable en javascript
       const data = await response.json()
@@ -22,9 +23,13 @@ function App() {
       // extraigo del titulo results
       const results = await data.results
       // le asigno a mi estado dicho resultado (vector con pokemones)
-      setPokemones(results)
+      setPokemones(results) 
+      // Aprovechando consultas sugeridas por la API para una paginacion especifica
+      // en este caso para la pagina anterior (los 10 pokemones que preceden a mi consulta
+      // actual)
       setAnterior(data.previous)
-      setSiguiente(data.next)
+      //
+      setSiguiente(data.next) 
     }
     // invoco la funcion anterior para que se ejecute
     obtenerPokemones()
@@ -39,8 +44,11 @@ function App() {
           return <li>{pokemon.name}</li>
         })}
       </ul>
-      <button onClick={()=> setActual  }>Anterior</button>
-      <button onClick={()=> setActual(siguiente)}>Siguiente</button>
+      {/* crear un boton que te devuelva automaticamente a la pagina */}
+      {/* aplicar bootstrap a todo el proyecto */}
+      {/* dividir el proyecto en componentes */}
+      <button onClick={()=> anterior !==null && setActual (anterior) }>Anterior</button>
+      <button onClick={()=> siguiente !==null && setActual(siguiente)}>Siguiente</button>
      
     </div>
   )
